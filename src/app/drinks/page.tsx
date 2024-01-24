@@ -1,12 +1,12 @@
 import { fetchDrinks } from '@/utils/db/drinks';
+import DrinkList from '@/components/DrinkList';
 
 export default async function DrinksPage() {
-  const data = await fetchDrinks();
-  console.log(data);
+  const drinks = await fetchDrinks();
 
   return (
-    <main>
-      <h1 className='text-7xl'>Drinks Page</h1>
-    </main>
+    <div>
+      <DrinkList drinks={drinks} />
+    </div>
   );
 }

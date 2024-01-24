@@ -1,4 +1,9 @@
-export async function fetchDrinks() {
+export interface Drink {
+  idDrink: string;
+  strDrink: string;
+}
+
+export async function fetchDrinks(): Promise<Drink[]> {
   const url = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?f=a';
 
   const response = await fetch(url);
@@ -6,5 +11,7 @@ export async function fetchDrinks() {
     throw new Error('Failed to fetch drinks');
   }
 
-  return await response.json();
+  const data = await response.json();
+
+  return data.drinks;
 }
