@@ -1,4 +1,6 @@
-// import { fetchDrinks } from '@/utils/db/drinks';
+import { notFound } from 'next/navigation';
+
+import { fetchDrinkById } from '@/utils/db/drinks';
 
 interface DrinkPageProps {
   params: {
@@ -8,12 +10,17 @@ interface DrinkPageProps {
 
 export default async function DrinkPage(props: DrinkPageProps) {
   const { id } = props.params;
-  // const data = await fetchDrinks();
-  // console.log(data);
+  const drink = await fetchDrinkById(id);
+
+  if (!drink) {
+    return notFound();
+  }
+
+  const { strDrink, strDrinkThumb } = drink;
 
   return (
-    <main>
-      <h1 className='text-7xl'>Drink {id} Page</h1>
-    </main>
+    <div>
+      <h1 className='text-4xl mb-8'>{strDrink}</h1>
+    </div>
   );
 }

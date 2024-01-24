@@ -9,8 +9,6 @@ interface DrinkListProps {
 export default function DrinkList(props: DrinkListProps) {
   const { drinks } = props;
 
-  console.log(drinks);
-
   const renderDrinks = drinks.map(item => {
     const { idDrink, strDrink } = item;
 
