@@ -1,4 +1,5 @@
 import { notFound } from 'next/navigation';
+import Image from 'next/image';
 
 import { fetchDrinkById } from '@/utils/db/drinks';
 
@@ -20,6 +21,14 @@ export default async function DrinkPage(props: DrinkPageProps) {
 
   return (
     <div>
+      <Image
+        src={strDrinkThumb}
+        className='w-48 h-48 rounded-lg shadow-lg mb-4'
+        width={300}
+        height={300}
+        alt='drink'
+        priority
+      />
       <h1 className='text-4xl mb-8'>{strDrink}</h1>
     </div>
   );
