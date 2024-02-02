@@ -1,4 +1,4 @@
-import TaskList from '@/components/TaskList';
+import TaskList from '@/components/task/List';
 import TaskForm from '@/components/forms/Task';
 
 export default function TasksPage() {

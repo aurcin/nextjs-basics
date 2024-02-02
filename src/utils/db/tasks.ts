@@ -19,18 +19,22 @@ export async function getAllTasks(): Promise<Task[]> {
   return tasks;
 }
 
+export async function getTask(id: string) {
+  return await db.task.findUnique({ where: { id } });
+}
+
 export async function updateTask(
   id: string,
-  data: { text?: string; is_done?: boolean }
+  data: { task?: string; is_done?: boolean }
 ): Promise<Task[]> {
-  const tasks = await db.task.update({
+  const task = await db.task.update({
     where: {
       id,
     },
     data,
   });
 
-  return tasks;
+  return task;
 }
 
 export async function deleteTask(id: string) {
