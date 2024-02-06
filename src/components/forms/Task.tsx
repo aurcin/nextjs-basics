@@ -1,5 +1,7 @@
 import { createTaskAction } from '@/actions/task';
 
+import Button from '@/components/forms/SubbmitButton';
+
 export default async function TaskForm() {
   return (
     <form action={createTaskAction}>
@@ -11,9 +13,7 @@ export default async function TaskForm() {
           name='content'
           required
         />
-        <button type='submit' className='btn btn-primary join-item'>
-          Create task
-        </button>
+        <Button>Create Task</Button>
       </div>
     </form>
   );

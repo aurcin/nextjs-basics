@@ -11,8 +11,7 @@ export async function createTaskAction(formData: FormData) {
     return;
   }
 
-  const task = await createTask(content);
-
+  await createTask(content);
   revalidatePath('/tasks');
 }
 
