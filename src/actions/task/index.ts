@@ -1,18 +1,45 @@
 'use server';
 
 import { revalidatePath } from 'next/cache';
+import { redirect } from 'next/navigation';
+import { z } from 'zod';
 
 import { createTask, deleteTask, updateTask } from '@/utils/db/tasks';
-import { redirect } from 'next/navigation';
 
-export async function createTaskAction(formData: FormData) {
+const createTaskSchema = z.object({
+  content: z.string().min(3, 'Minimum 3 letters'),
+});
+
+interface CreateTaskFormState {
+  message: string;
+  success: boolean;
+}
+
+export async function createTaskAction(
+  _formState: CreateTaskFormState,
+  formData: FormData
+): Promise<CreateTaskFormState> {
   const content = formData.get('content');
   if (typeof content !== 'string' || !content?.length) {
-    return;
+    return { success: false, message: 'Bad content input' };
   }
 
-  await createTask(content);
+  const result = createTaskSchema.safeParse({ content });
+  if (!result.success) {
+    return {
+      success: false,
+      message: result.error.flatten().fieldErrors.content?.join(', ') || '',
+    };
+  }
+
+  try {
+    await createTask(content);
+  } catch (error: any) {
+    return { success: false, message: 'error' };
+  }
+
   revalidatePath('/tasks');
+  return { success: true, message: 'success' };
 }
 
 export async function editTaskAction(formData: FormData) {
